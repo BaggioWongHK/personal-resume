@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Baggio Wong's résumé</title>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap.bundle.js"></script>
+
+    <script src="js/data-en.js"></script>
+    <script src="js/data-zh.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+
+    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+    <div class="video-container">
+        <video class="brief-hk-intro" autoplay loop muted>
+            <source src="video/short-HK-intro.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- timeline points modal -->
+    <div class="modal fade" id="timeline-details-modal" >
+        <!--tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"-->
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="function-bar">
+        <i class="icon ion-play"></i>
+        <i class="icon ion-pause"></i>
+        <input type="range" min="1" max="100" value="0" class="musicSlider">
+        <audio id="relaxing-audio" loop>
+            <source src="audio/lazy-day.mp3" type="audio/mp3">
+        </audio>
+
+        <label class="chronological-switch">
+            <input type="checkbox" checked>
+            <span class="slider round"></span>
+        </label>
+        <nav class="language-chooser">
+            <ul class="pagination pagination-sm">
+                <li class="page-item active"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Spanish, Korean, Japanese, French coming soon!"><a class="page-link" href="#">EN</a></li>
+                <li class="page-item"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="西班牙文、韓文、日文和法文版將會上線！"><a class="page-link" href="#">ZH</a></li>
+                <!--<li class="page-item disabled"><a class="page-link" href="#">JP</a></li>-->
+                <!--<li class="page-item disabled"><a class="page-link" href="#">FR</a></li>-->
+                <!--<li class="page-item disabled"><a class="page-link" href="#">KO</a></li>-->
+                <!--<li class="page-item disabled"><a class="page-link" href="#">ES</a></li>-->
+            </ul>
+        </nav>
+    </div>
+
+    <div class="pulldown-menu">
+        <i class="icon ion-chevron-down"></i>
+    </div>
+
+    <div class="slidedown-button"></div>
+
+    <div class="main-layer">
+        <div class="headshot-section">
+            <img src="images/baggio-wong.jpg" class="my-headshot" data-toggle="modal" data-target="#timeline-details-modal"/>
+        </div>
+
+        <div class="click-instructions">
+            Please click on my head and timeline boxes for more details.
+        </div>
+
+        <div class="technical-details"></div>
+
+        <div class="main-timeline">
+            <!--<div class="final-timeline-point">-->
+                <!--<i class="icon ion-ios-circle-filled"></i>-->
+                <!--<div class="date-year-final">Now</div>-->
+            <!--</div>-->
+            <div class="timeline-splice" id="original-timeline-splice-reverse">
+                <hr />
+                <i class="icon ion-ios-circle-filled"></i>
+                <div class="date-year"></div> <!-- year -->
+                <div class="project-details">
+                    <div data-toggle="modal" data-target="#timeline-details-modal" class="summary-text"></div> <!-- timeline point summary -->
+                </div>
+            </div>
+
+            <div class="timeline-splice non-reverse-order" id="original-timeline-splice">
+                <div class="date-year"></div> <!-- year -->
+                <i class="icon ion-ios-circle-filled"></i>
+                <hr />
+                <div class="project-details">
+                    <div data-toggle="modal" data-target="#timeline-details-modal" class="summary-text"></div> <!-- timeline point summary -->
+                </div>
+            </div>
+        </div>
+
+
+        <div class="music-credits">
+            <hr />
+            <p>
+                <span class="bolded-text">Lazy Day by Audionautix</span> is licensed under a Creative Commons Attribution licence (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">https://creativecommons.org/licenses/by/4.0/</a>)
+            </p>
+            <p>
+                <span class="bolded-text">Artist: </span><a href="http://audionautix.com/" target="_blank">http://audionautix.com/</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
