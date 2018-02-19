@@ -35,6 +35,12 @@ $(window).on('resize', repositionTimelinePoints);
 
 $(window).on('resize', resizeVideos);
 
+/**
+ * @description Dynamically resize YouTube video embeds
+ * as the window resizes. The aspect ratio is based on
+ * YouTube videos' default ratio in the embed code,
+ * 560 x 315.
+ */
 function resizeVideos() {
     var aspectRatio = 560/315;
 
@@ -50,6 +56,13 @@ function resizeVideos() {
     $('#self-intro-video').attr('height', videoHeight);
 }
 
+/**
+ * @description The data is filled in respectively in the
+ * popup modal. Time skip links handlers are added here
+ * for two respective videos in the modal. Note that they
+ * are added here because these time skip links only exist
+ * after the HTML have been set in the modal.
+ */
 function displayPersonalModal() {
     $('#timeline-details-modal .modal-title').text(personalDetails.title);
     $('#timeline-details-modal .modal-body').html(personalDetails.html);
@@ -69,12 +82,27 @@ function displayPersonalModal() {
     });
 }
 
+/**
+ * @description This repositions all timeline points in
+ * chronological or reverse chronological order based on
+ * the chronological toggle value (which is the slider
+ * element in the slide down function bar).
+ */
 function toggleSwitchValue() {
     chronologicalToggle = $('.chronological-switch input').is(':checked');
 
     repositionTimelinePoints();
 }
 
+/**
+ * @description This grabs the currently selected language
+ * (the default is English), and changes the display language
+ * of the timeline points based on the language input. This
+ * also changes the highlighted language in the language bar.
+ * Note that interface elements are not changed - ONLY timeline
+ * elements have translations available currently.
+ * @param {MouseEvent} event
+ */
 function changeDisplayLanguage(event) {
     currentLang = event.currentTarget.innerText.trim();
 
@@ -86,6 +114,10 @@ function changeDisplayLanguage(event) {
     repositionTimelinePoints();
 }
 
+/**
+ * @description This toggles the function bar when the
+ * down arrow is clicked.
+ */
 function toggleFunctionBar() {
     if (!functionBarState) {
         $('.function-bar').addClass('show-function-bar');
@@ -98,6 +130,11 @@ function toggleFunctionBar() {
     }
 }
 
+/**
+ * @description This calculates the time of the music track playing
+ * as a percentage of the entire track length, and moves the
+ * slider button to its appropriate position in the music slider.
+ */
 function updateSliderPosition() {
     var musicSource = document.getElementById('relaxing-audio');
     var currentTime = musicSource.currentTime;
@@ -107,6 +144,11 @@ function updateSliderPosition() {
     $('.musicSlider').val(musicSliderValue);
 }
 
+/**
+ * @description This grabs the current slider value, and
+ * based on its position relative to the whole slider, changes
+ * the background music track to the appropriate position.
+ */
 function changeMusicTime() {
     var musicSource = document.getElementById('relaxing-audio');
     var sliderValue = $('.musicSlider').val();
@@ -115,18 +157,32 @@ function changeMusicTime() {
     musicSource.currentTime = trackLength * (sliderValue / 100);
 }
 
+/**
+ * @description Pressing this changes the pause icon to a
+ * play icon and plays the music track.
+ */
 function playMusic() {
     document.getElementById('relaxing-audio').play();
     $(this).css('display', 'none');
     $('.ion-pause').css('display', 'initial');
 }
 
+/**
+ * @description Pressing this changes the play icon to a
+ * pause icon and pauses the music track.
+ */
 function pauseMusic() {
     document.getElementById('relaxing-audio').pause();
     $(this).css('display', 'none');
     $('.ion-play').css('display', 'initial');
 }
 
+/**
+ * @description This removes all the timeline points, and
+ * repositions them again. We do this to reflect changes
+ * in settings, such as chronological order and display
+ * language.
+ */
 function repositionTimelinePoints() {
     var timelinePointsCount = 0;
 
@@ -140,6 +196,14 @@ function repositionTimelinePoints() {
     $('.timeline-splice').click(disableEmptyModals);
 }
 
+/**
+ * @description When clicking on a timeline event, a modal
+ * should appear, containing the relevant data relative to
+ * the timeline box associated with the modal. However, if
+ * the timeline box is originally empty, we disable the
+ * modal from popping up in the first place.
+ * @param {MouseEvent} event
+ */
 function disableEmptyModals(event) {
     var originId = event.currentTarget.id;
     var modalBodyText = timelinePoints[currentLang][originId]['long'];
@@ -152,11 +216,21 @@ function disableEmptyModals(event) {
     $('#timeline-details-modal .modal-body').html(modalBodyText);
 }
 
+/**
+ * @description This is the main function body that displays
+ * the timeline points along the vertical timeline dynamically.
+ * When the window resizes, these need to be re-calculated so
+ * each vertical stretch of the whole timeline matches the height
+ * of the box containing the text associated with each year along
+ * the timeline.
+ * @param reverseTimeline
+ */
 function displayTimelinePoints(reverseTimeline) {
     //  get number of data points
     var timelinePointsCount = 0;
     var timelineKeys = [];
 
+    //  all the years in the timeline array
     for (point in timelinePoints[currentLang]) {
         timelinePointsCount++;
         timelineKeys.push(point);
@@ -173,6 +247,8 @@ function displayTimelinePoints(reverseTimeline) {
         var clonedLayer = (chronologicalToggle) ? ($('#original-timeline-splice-reverse').clone())
                                                 : ($('#original-timeline-splice').clone());
 
+        //  the "now" box in reverse order is just a dot, we remove the stretch of
+        //  vertical line and the box associated with other lines
         if (chronologicalToggle && loopCount === 0) {
             clonedLayer.find('hr').remove();
             clonedLayer.find('.project-details').remove();
