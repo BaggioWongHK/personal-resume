@@ -3,7 +3,8 @@ var currentLang = "EN";
 var chronologicalToggle = 1; // 0 is decreasing order; 1 is increasing order
 
 $(window).on('load', function() {
-    displayTimelinePoints(true);
+    repositionTimelinePoints();
+    // displayTimelinePoints(true);
 
     $('[data-toggle="tooltip"]').tooltip();
 
